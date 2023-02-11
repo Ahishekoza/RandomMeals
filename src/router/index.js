@@ -1,20 +1,47 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
+import SearchByLetter from '../components/SearchByLetter.vue'
+import SearchByName from '@/components/SearchByName.vue'
+import SearchByIngredient from '@/components/SearchByIngredient.vue'
+import DefaultLayout from '@/components/DefaultLayout.vue'
+import MealDetailsVue from '@/views/MealDetails.vue'
 const routes = [
+
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    component: DefaultLayout,
+    children: [
+      {
+        path: '/',
+        name: 'home',
+        component: HomeView
+      },
+      // ? Makes the parameter optional 
+      {
+        path: '/letter/:letter?',
+        name: 'ByLetter',
+        component: SearchByLetter
+      },
+      {
+        path: '/Name/:name?',
+        name: 'ByName',
+        component: SearchByName
+      },
+      {
+        path: '/Ingredient/:ingredient?',
+        name: 'ByIngredient',
+        component: SearchByIngredient
+      },
+      {
+        path: '/mealdetails/:id',
+        name: 'MealDetails',
+        component: MealDetailsVue
+
+      }
+    
+    ]
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+  
 ]
 
 const router = createRouter({
